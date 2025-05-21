@@ -9,25 +9,43 @@
     <style>
       body {
         background-color: #141414;
-        color: white;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
       }
+
+      h1 {
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
       .anime-card {
+        background-color: #1f1f1f;
         margin: 10px;
         border: none;
         border-radius: 10px;
         overflow: hidden;
-        transition: transform 0.2s;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       }
+
       .anime-card:hover {
         transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
       }
+
       .anime-image {
         width: 100%;
-        height: auto;
+        height: 300px;
+        object-fit: cover;
       }
+
       .anime-title {
-        font-size: 1.2em;
-        margin-top: 10px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        margin: 15px 0 10px 0;
       }
     </style>
   </head>
@@ -71,9 +89,9 @@
                 alt="Anime Image"
               />
             </a>
-            <div class="card-body">
+            <div class="card-body p-2">
               <h5 class="anime-title" th:text="${anime.title}"></h5>
-              <p class="card-text" th:text="${anime.synopsis}"></p>
+              <!-- Deskripsi dihapus -->
             </div>
           </div>
         </div>

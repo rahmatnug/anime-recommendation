@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title th:text="${anime.title} + ' - Detail'">Detail Anime</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #141414;
+        color: white;
+      }
+      .anime-detail {
+        margin-top: 30px;
+      }
+      .anime-poster {
+        max-width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+      .detail-section {
+        background-color: #1a1a1a;
+        padding: 25px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+      }
+      .badge-genre {
+        background-color: #e50914 !important;
+        margin: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container anime-detail">
+      <div class="row">
+        <!-- Kolom Poster -->
+        <div class="col-md-4">
+          <img
+            th:src="${anime.mainPictureLarge}"
+            class="anime-poster"
+            alt="Anime Poster"
+          />
+        </div>
+
+        <!-- Kolom Detail -->
+        <div class="col-md-8">
+          <div class="detail-section">
+            <h1 th:text="${anime.title}"></h1>
+
+            <!-- Informasi Metadata -->
+            <div class="metadata mb-4">
+              <div th:if="${anime.score != null}" class="mr-3 d-inline-block">
+                <i class="fas fa-star text-warning"></i>
+                <span th:text="${anime.score} + '/10'"></span>
+              </div>
+              <div
+                th:if="${anime.episodes != null}"
+                class="mr-3 d-inline-block"
+              >
+                <i class="fas fa-film"></i>
+                <span th:text="${anime.episodes} + ' Episode'"></span>
+              </div>
+              <div th:if="${anime.rating != null}" class="d-inline-block">
+                <i class="fas fa-exclamation-triangle"></i>
+                <span th:text="${anime.rating}"></span>
+              </div>
+            </div>
+
+            <!-- Genre dengan Badge -->
+            <div class="mb-4">
+              <h5>Genre</h5>
+              <div th:if="${anime.genre}">
+                <span
+                  th:each="genre : ${#strings.arraySplit(anime.genre, ', ')}"
+                  class="badge badge-genre"
+                  th:text="${genre}"
+                ></span>
+              </div>
+              <div th:unless="${anime.genre}" class="text-muted">
+                Genre tidak tersedia
+              </div>
+            </div>
+
+            <!-- Sinopsis -->
+            <div class="synopsis">
+              <h3>Sinopsis</h3>
+              <p th:text="${anime.synopsis} ?: 'Sinopsis tidak tersedia'"></p>
+            </div>
+
+            <!-- Tombol Kembali -->
+            <a href="/" class="btn btn-primary mt-4">
+              <i class="fas fa-arrow-left mr-2"></i>
+              Kembali ke Beranda
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Font Awesome untuk Ikon -->
+    <script
+      src="https://kit.fontawesome.com/your-kit-code.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

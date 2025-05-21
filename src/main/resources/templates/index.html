@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Rekomendasi Anime</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #141414;
+        color: white;
+      }
+      .anime-card {
+        margin: 10px;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.2s;
+      }
+      .anime-card:hover {
+        transform: scale(1.05);
+      }
+      .anime-image {
+        width: 100%;
+        height: auto;
+      }
+      .anime-title {
+        font-size: 1.2em;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="mt-5">Rekomendasi Anime</h1>
+
+      <!-- Form Pencarian -->
+      <form action="/" method="get" class="mb-4">
+        <div class="input-group">
+          <input
+            type="text"
+            name="search"
+            placeholder="Cari Anime"
+            class="form-control"
+          />
+          <select name="genre" class="form-control">
+            <option value="">Pilih Genre</option>
+            <option value="action">Action</option>
+            <option value="adventure">Adventure</option>
+            <option value="comedy">Comedy</option>
+            <option value="drama">Drama</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="horror">Horror</option>
+            <option value="romance">Romance</option>
+            <option value="sci-fi">Sci-Fi</option>
+          </select>
+          <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Cari</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="row">
+        <div class="col-md-3" th:each="anime : ${animeList}">
+          <div class="card anime-card">
+            <a th:href="@{/anime/{id}(id=${anime.id})}">
+              <img
+                th:src="${anime.mainPictureMedium}"
+                class="anime-image"
+                alt="Anime Image"
+              />
+            </a>
+            <div class="card-body">
+              <h5 class="anime-title" th:text="${anime.title}"></h5>
+              <p class="card-text" th:text="${anime.synopsis}"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

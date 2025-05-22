@@ -60,9 +60,8 @@
     </style>
   </head>
   <body>
-
     <video class="video-bg" autoplay muted loop>
-      <source th:src="@{/videos/bg-video.mp4}" type="video/mp4">
+      <source th:src="@{/videos/bg-video.mp4}" type="video/mp4" />
       Your browser does not support the video tag.
     </video>
 
@@ -70,38 +69,41 @@
       <h1 class="mt-5">Rekomendasi Anime</h1>
 
       <!-- Form Pencarian -->
-<form action="/" method="get" class="search-form mb-4">
-  <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
-    
-    <input
-      type="text"
-      name="search"
-      placeholder="Cari Anime"
-      class="form-control"
-      style="
-        max-width: 500px;
-        padding: 12px 18px;
-        border-radius: 12px;
-        border: none;
-        background: rgba(255, 255, 255, 0.9);
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        font-size: 16px;
-      "
-    />
-    <select name="genre" class="form-control" style="max-width: 150px;">
-      <option value="">Pilih Genre</option>
-      <option value="action">Action</option>
-      <option value="adventure">Adventure</option>
-      <option value="comedy">Comedy</option>
-      <option value="drama">Drama</option>
-      <option value="fantasy">Fantasy</option>
-      <option value="horror">Horror</option>
-      <option value="romance">Romance</option>
-      <option value="sci-fi">Sci-Fi</option>
-    </select>
-    <button type="submit" class="btn btn-primary">Cari</button>
-  </div>
-</form>
+      <form action="/" method="get" class="search-form mb-4">
+        <div
+          style="
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+          "
+        >
+          <input
+            type="text"
+            name="search"
+            placeholder="Cari Anime"
+            class="form-control"
+            style="
+              max-width: 500px;
+              padding: 12px 18px;
+              border-radius: 12px;
+              border: none;
+              background: rgba(255, 255, 255, 0.9);
+              box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+              font-size: 16px;
+            "
+          />
+          <select name="genre" class="form-control" style="max-width: 150px">
+            <option value="">Pilih Genre</option>
+            <option
+              th:each="genre : ${genres}"
+              th:value="${genre.get('mal_id')}"
+              th:text="${genre.get('name')}"
+            ></option>
+          </select>
+          <button type="submit" class="btn btn-primary">Cari</button>
+        </div>
+      </form>
       <div class="row">
         <div class="col-md-3" th:each="anime : ${animeList}">
           <div class="card anime-card">

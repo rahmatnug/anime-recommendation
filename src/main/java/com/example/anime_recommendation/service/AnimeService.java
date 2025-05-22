@@ -31,6 +31,13 @@ public class AnimeService {
         this.restTemplate = restTemplate;
     }
     
+    private HttpHeaders createJikanHeaders() {
+    HttpHeaders headers = new HttpHeaders();
+    headers.set("User-Agent", "AnimeRecommendationApp/1.0");
+    headers.setAccept(Collections.singletonList(MediaType.APPLICATION_JSON));
+    return headers;
+    }
+
     private HttpHeaders createMalHeaders() {
         HttpHeaders headers = new HttpHeaders();
         headers.set("X-MAL-CLIENT-ID", clientId);
@@ -145,20 +152,45 @@ public class AnimeService {
             ));
     }
     
-    public List<Anime> getAnimeByGenre(String genre) {
-    String url = "https://api.myanimelist.net/v2/anime/ranking?ranking_type=all&limit=10&fields=id,title,main_picture,synopsis,genres&genre=" + encodeValue(genre);
-    try {
-        ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
-            url,
-            HttpMethod.GET,
-            new HttpEntity<>(createMalHeaders()),
-            new ParameterizedTypeReference<Map<String, Object>>() {}
-        );
-        return mapToAnimeList((List<Map<String, Object>>) response.getBody().get("data"));
-    } catch (Exception e) {
-        logger.error("Error fetching anime by genre", e);
-        return Collections.emptyList();
+    public List<Map<String, Object>> getAnimeGenres() {
+        String url = "https://api.jikan.moe/v4/genres/anime";
+        List<Map<String, Object>> genreList = new ArrayList<>();
+        try {
+            ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                new HttpEntity<>(createJikanHeaders()),
+                new ParameterizedTypeReference<Map<String, Object>>() {}
+            );
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                genreList = (List<Map<String, Object>>) response.getBody().get("data");
+            }
+        } catch (Exception e) {
+            logger.error("Error fetching anime genres", e);
+        }
+        return genreList;
     }
+
+    public List<Anime> getAnimeByGenre(int genreId) {
+        String url = "https://api.jikan.moe/v4/anime?q=&genres=" + genreId + "&limit=10&fields=id,title,main_picture,synopsis,genres";
+        List<Anime> filteredAnimeList = new ArrayList<>();
+        try {
+            ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                new HttpEntity<>(createJikanHeaders()),
+                new ParameterizedTypeReference<Map<String, Object>>() {}
+            );
+            if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+                List<Map<String, Object>> animeData = (List<Map<String, Object>>) response.getBody().get("data");
+                for (Map<String, Object> anime : animeData) {
+                    filteredAnimeList.add(mapToAnime(anime));
+                }
+            }
+        } catch (Exception e) {
+            logger.error("Error fetching anime by genre", e);
+        }
+        return filteredAnimeList;
     }
     
     private List<Anime> mapToAnimeList(List<Map<String, Object>> animeData) {
@@ -178,11 +210,24 @@ public class AnimeService {
             int id = animeData.get("id") != null ? ((Number) animeData.get("id")).intValue() : 0;
             String title = (String) animeData.get("title");
             
-            // Handle main picture
-            Map<String, String> mainPicture = animeData.get("main_picture") != null ? 
-                (Map<String, String>) animeData.get("main_picture") : null;
-            String mediumImage = mainPicture != null ? mainPicture.get("medium") : "";
-            String largeImage = mainPicture != null ? mainPicture.get("large") : "";
+            // Handle main picture or images (Jikan API v4)
+            Map<String, Object> images = animeData.get("images") != null ?
+                (Map<String, Object>) animeData.get("images") : null;
+            String mediumImage = "";
+            String largeImage = "";
+            if (images != null) {
+                Map<String, String> jpg = images.get("jpg") != null ?
+                    (Map<String, String>) images.get("jpg") : null;
+                if (jpg != null) {
+                    mediumImage = jpg.get("image_url") != null ? jpg.get("image_url") : "";
+                    largeImage = jpg.get("large_image_url") != null ? jpg.get("large_image_url") : "";
+                }
+            } else {
+                Map<String, String> mainPicture = animeData.get("main_picture") != null ? 
+                    (Map<String, String>) animeData.get("main_picture") : null;
+                mediumImage = mainPicture != null ? mainPicture.get("medium") : "";
+                largeImage = mainPicture != null ? mainPicture.get("large") : "";
+            }
             
             // Handle synopsis
             String synopsis = (String) animeData.get("synopsis");

@@ -3,6 +3,8 @@ package com.example.anime_recommendation.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,27 +24,50 @@ public class AnimeController {
     }
 
     @GetMapping("/")
-public String index(Model model,
+    public String index(Model model,
                     @RequestParam(required = false) String search,
                     @RequestParam(required = false) String genre) {
     List<Anime> animeList;
     if (search != null && !search.isEmpty()) {
         animeList = animeService.searchAnime(search);
     } else if (genre != null && !genre.isEmpty()) {
-        animeList = animeService.getAnimeByGenre(genre);
+        try {
+            int genreId = Integer.parseInt(genre);
+            animeList = animeService.getAnimeByGenre(genreId);
+        } catch (NumberFormatException e) {
+            animeList = animeService.getAnimeList();
+        }
     } else {
         animeList = animeService.getAnimeList();
     }
     model.addAttribute("animeList", animeList);
-    return "index";
-}
 
-    @GetMapping("/genre/{genreId}")
-    public String animeByGenre(@PathVariable String genreId, Model model) {
-        Object animeList = animeService.getAnimeByGenre(genreId);
-        model.addAttribute("animeList", animeList);
-        model.addAttribute("genreId", genreId);
-        return "genre";
+    // Add genres list to model for genre dropdown
+    model.addAttribute("genres", animeService.getAnimeGenres());
+
+    return "index";
+    }
+
+    @GetMapping("/genres")
+    public String getGenres(Model model) {
+        List<Map<String, Object>> genres = animeService.getAnimeGenres();
+        model.addAttribute("genres", genres);
+        return "genres"; // Create a new view for genres
+    }
+    
+     @GetMapping("/searchByGenre")
+    public ResponseEntity<List<Anime>> searchByGenre(@RequestParam String genreId, Model model) {
+        try {
+            int genreIdInt = Integer.parseInt(genreId); // Convert String to int
+            List<Anime> animeList = animeService.getAnimeByGenre(genreIdInt);
+            if (animeList.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(animeList); // Return 404 if no anime found
+            }
+            model.addAttribute("animeList", animeList);
+            return ResponseEntity.ok(animeList); // Return 200 OK with anime list
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null); // Return 400 Bad Request for invalid genreId
+        }
     }
 
     @GetMapping("/search")

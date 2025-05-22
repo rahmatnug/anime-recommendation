@@ -23,6 +23,26 @@ public class AnimeController {
         this.animeService = animeService;
     }
 
+    private static final org.slf4j.Logger logger = org.slf4j.LoggerFactory.getLogger(AnimeController.class);
+
+    @GetMapping("/jikan/anime/{id}")
+    public String animeDetailJikan(@PathVariable int id, Model model) {
+        logger.info("Received request for anime detail with ID: {}", id);
+        if (id <= 0) {
+            model.addAttribute("errorMessage", "ID anime tidak valid.");
+            return "error";
+        }
+
+        Anime anime = animeService.getAnimeDetailsJikan(id);
+        logger.info("Anime object returned from service: {}", anime);
+        if (anime == null) {
+            model.addAttribute("errorMessage", "Anime tidak ditemukan.");
+            return "error";
+        }
+        model.addAttribute("anime", anime);
+        return "anime-detail";
+    }
+
     @GetMapping("/")
     public String index(Model model,
                     @RequestParam(required = false) String search,

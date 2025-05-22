@@ -97,7 +97,7 @@
             <option value="">Pilih Genre</option>
             <option
               th:each="genre : ${genres}"
-              th:value="${genre.get('mal_id')}"
+              th:value="${genre.get('mal_id') != null ? genre.get('mal_id') : genre.get('id')}"
               th:text="${genre.get('name')}"
             ></option>
           </select>
@@ -107,7 +107,7 @@
       <div class="row">
         <div class="col-md-3" th:each="anime : ${animeList}">
           <div class="card anime-card">
-            <a th:href="@{/anime/{id}(id=${anime.id})}">
+            <a th:href="@{/jikan/anime/{id}(id=${anime.jikanId})}">
               <img
                 th:src="${anime.mainPictureMedium}"
                 class="anime-image"

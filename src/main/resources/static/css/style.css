@@ -1,0 +1,276 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #121111;
+  color: #ffffff;
+}
+/* Navbar utama */
+.navbar {
+  background-color: #222;
+  padding: 0.5rem 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Logo kiri, menu kanan */
+}
+
+/* Brand logo + text */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #00ffff;
+  letter-spacing: 1.2px;
+}
+
+.navbar-brand img {
+  margin-right: 10px;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.1);
+}
+
+/* Navbar links container */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: flex-end; /* menu ke kanan */
+}
+
+/* Navbar links */
+.nav-link {
+  color: #aaa;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-item.active .nav-link {
+  color: #00ffff;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #00ffff;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-item.active .nav-link::after {
+  width: 100%;
+}
+
+/* Responsive tweaks */
+@media (max-width: 767px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    background-color: #222;
+    padding: 1rem 0;
+    justify-content: center;
+  }
+  .nav-link {
+    padding: 0.5rem 1rem;
+  }
+}
+
+
+h1 {
+  font-weight: 600;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+}
+.video-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: -1;
+}
+
+h2{
+
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 60px;
+  margin-top: 10px;
+  
+
+
+}
+
+
+.anime-card {
+  background-color: #1f1f1f;
+  margin: 10px;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.anime-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.anime-image {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.anime-title {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.search-form input[type="text"],
+.search-form select {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 16px;
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  font-size: 1rem;
+  width: 100%;
+}
+
+.search-form select {
+  min-width: 160px;
+}
+
+.search-form button {
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: #007bff;
+  border: none;
+  color: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s;
+}
+
+.search-form button:hover {
+  background-color: #0056b3;
+}
+
+@media (max-width: 576px) {
+  .anime-image {
+    height: 200px;
+  }
+
+  .search-form {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .search-form input,
+  .search-form select,
+  .search-form button {
+    width: 100% !important;
+  }
+}
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #141e30, #243b55);
+  color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 50px;
+  font-size: 3rem;
+  color: #ffffff;
+}
+
+.team-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.card {
+  background-color: #1f1f1f;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  text-align: center;
+  transition: transform 0.3s ease;
+  width: 280px;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+}
+
+.card h3 {
+  margin: 15px 0 5px;
+}
+
+.card p {
+  color: #bbb;
+  margin-bottom: 10px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 15px;
+}
+
+.social-icons a {
+  color: #ffffff;
+  background-color: #333;
+  padding: 8px;
+  border-radius: 50%;
+  transition: background-color 0.3s;
+  font-size: 18px;
+}
+
+.social-icons a:hover {
+  background-color: #007bff;
+}
+

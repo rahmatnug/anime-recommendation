@@ -67,6 +67,11 @@ public class AnimeController {
 
     return "index";
     }
+    @GetMapping("/about")
+public String aboutPage() {
+    return "about"; // nama file about.html di folder templates
+}
+
 
     @GetMapping("/genres")
     public String getGenres(Model model) {

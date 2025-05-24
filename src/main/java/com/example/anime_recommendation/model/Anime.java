@@ -1,7 +1,8 @@
 package com.example.anime_recommendation.model;
 
 public class Anime {
-    private int id;
+    private int jikanId;
+    private int malId;
     private String title;
     private String mainPictureMedium;
     private String mainPictureLarge;
@@ -12,9 +13,10 @@ public class Anime {
     private String rating;
 
     // Constructor
-    public Anime(int id, String title, String mainPictureMedium, String mainPictureLarge, 
+    public Anime(int jikanId, int malId, String title, String mainPictureMedium, String mainPictureLarge, 
                 String synopsis, String genre) {
-        this.id = id;
+        this.jikanId = jikanId;
+        this.malId = malId;
         this.title = title;
         this.mainPictureMedium = mainPictureMedium;
         this.mainPictureLarge = mainPictureLarge;
@@ -23,12 +25,20 @@ public class Anime {
     }
 
     // Getters and Setters
-    public int getId() {
-        return id;
+    public int getJikanId() {
+        return jikanId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setJikanId(int jikanId) {
+        this.jikanId = jikanId;
+    }
+
+    public int getMalId() {
+        return malId;
+    }
+
+    public void setMalId(int malId) {
+        this.malId = malId;
     }
 
     public String getTitle() {

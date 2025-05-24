@@ -10,6 +10,61 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/style.css" />
+    <style>
+     
+     .video-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: -1;
+        object-fit: cover;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #121111;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+      }
+
+      h1 {
+        color: #ffffff;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .anime-card {
+        background-color: #1f1f1f;
+        margin: 10px;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      }
+
+      .anime-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+      }
+
+      .anime-image {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+      }
+
+      .anime-title {
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #ffffff;
+        text-align: center;
+        margin: 15px 0 10px 0;
+      }
+    </style>
   </head>
   <body>
     <!-- Navbar bro -->

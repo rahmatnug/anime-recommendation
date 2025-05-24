@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #141e30, #243b55);
+  color: #ffffff;
+  padding:0;
+}
+
+/* Navbar utama */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #222 !important;
+  padding: 0.7rem 2rem;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; 
+  transition: background-color 0.3s ease-in-out;
+  margin-bottom: 90px;
+  
+}
+
+.anime-detail {
+  margin-top: 100px;
+}
+
+/* Brand logo + text */
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: #00ffff;
+  letter-spacing: 1.2px;
+}
+
+.navbar-brand .brand-text {
+  font-size: 60px;
+  font-weight: 700;
+  /* color: #00ffff; */
+  white-space: nowrap;
+   font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  
+}
+
+
+.navbar-brand img {
+  margin-right: 10px;
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.1);
+}
+
+/* Navbar links container */
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  justify-content: flex-end; /* menu ke kanan */
+}
+
+/* Navbar links */
+.nav-link {
+  color: #aaa;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: color 0.3s ease, border-bottom 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-item.active .nav-link {
+  color: #00ffff;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: #00ffff;
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-item.active .nav-link::after {
+  width: 100%;
+}
+
+
+/* Responsive tweaks */
+@media (max-width: 767px) {
+  .navbar {
+    flex-wrap: wrap;
+  }
+  .navbar-nav {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    background-color: #222 !important;
+    padding: 1rem 0;
+    justify-content: center;
+  }
+  .nav-link {
+    padding: 0.5rem 1rem;
+  }
+}
+
+.anime-detail {
+  background-color: #222;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  max-width: 1100px;
+  margin: auto;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anime-poster {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease;
+}
+
+.anime-poster:hover {
+  transform: scale(1.03);
+}
+
+.detail-section h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 20px;
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.metadata {
+  margin-bottom: 25px;
+}
+
+.metadata i {
+  margin-right: 8px;
+  color: #ffc107;
+}
+
+.metadata span {
+  font-size: 1.1rem;
+  font-weight: 500; 
+  margin-right: 20px;
+  display: inline-block;
+  color: #ddd;
+
+}
+
+.badge-genre {
+  background-color: #00bcd4;
+  color: #fff;
+  padding: 8px 14px;
+  margin: 6px 6px 0 0;
+  border-radius: 30px;
+  font-size: 0.95rem;
+  display: inline-block;
+  transition: background-color 0.3s;
+  box-shadow: 0 2px 6px rgba(0, 188, 212, 0.3);
+}
+
+.badge-genre:hover {
+  background-color: #0097a7;
+}
+
+.synopsis {
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-left: 4px solid #00bcd4;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.synopsis h3 {
+  font-size: 1.5rem;
+  margin-bottom: 12px;
+  color: #ffffff;
+}
+
+.synopsis p {
+  line-height: 1.8;
+  color: #ddd;
+}
+
+.btn-primary {
+  background-color: #00bcd4;
+  border: none;
+  font-weight: 600;
+  padding: 10px 25px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0097a7;
+  transform: translateY(-2px);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .detail-section h1 {
+    font-size: 2rem;
+    text-align: center;
+  }
+
+  .metadata {
+    text-align: center;
+  }
+
+  .anime-poster {
+    margin-bottom: 20px;
+  }
+
+  .synopsis {
+    margin-top: 20px;
+  }
+
+  .btn-primary {
+    display: block;
+    margin: 20px auto 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .anime-detail {
+    padding: 20px;
+  }
+
+  .badge-genre {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+  }
+
+  .synopsis {
+    font-size: 0.9rem;
+  }
+}

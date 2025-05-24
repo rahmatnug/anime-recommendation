@@ -1,4 +1,4 @@
-# Nama Proyek Kelompok : Aplikasi Anime Recommendation
+#  : Aplikasi Anime Recommendation
 
 ## Anggota Kelompok
 
